@@ -16,16 +16,6 @@ pipeline {
     }
 
   }
-  environment {
-    GIT_REPO = 'https://github.com/percona/percona-server.git'
-    BRANCH = '8.0'
-    PERCONAFT_REPO = '0'
-    PERCONAFT_BRANCH = 'master'
-    TOKUBACKUP_REPO = '0'
-    TOKUBACKUP_BRANCH = 'master'
-    RPM_RELEASE = '1'
-    DEB_RELEASE = '1'
-  }
   options {
     skipDefaultCheckout()
     disableConcurrentBuilds()
