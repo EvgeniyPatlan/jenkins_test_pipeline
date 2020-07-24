@@ -15,8 +15,14 @@ pipeline {
     disableConcurrentBuilds()
   }
   parameters {
-    string(defaultValue: '8.0', description: 'Tag/Branch for percona-server repository', name: 'GIT_BRANCH')
-    string(defaultValue: '1', description: 'REVISION for release build only', name: 'REVISION')
+    string(defaultValue: 'https://github.com/percona/percona-server.git', description: 'github repository for build', name: 'GIT_REPO')
+    string(defaultValue: '8.0', description: 'Tag/Branch for percona-server repository', name: 'BRANCH')
+    string(defaultValue: '0', description: 'PerconaFT repository', name: ' 	PERCONAFT_REPO')
+    string(defaultValue: 'master', description: 'Tag/Branch for PerconaFT repository', name: '')
+    string(defaultValue: '0', description: 'TokuBackup repository', name: 'TOKUBACKUP_REPO')
+    string(defaultValue: 'master', description: 'Tag/Branch for TokuBackup repository', name: 'TOKUBACKUP_BRANCH')
+    string(defaultValue: '1', description: 'RPM version', name: 'RPM_RELEASE')
+    string(defaultValue: '1', description: 'DEB version', name: 'DEB_RELEASE')
     choice(choices: '''NO
 YES''', description: 'Is this build for release?', name: 'RELEASE_BUILD')
     choice(choices: '''laboratory
