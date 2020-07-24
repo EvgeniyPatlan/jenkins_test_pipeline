@@ -1,18 +1,9 @@
 pipeline {
   agent {
-    docker {
-      image 'ubuntu:xenial'
-    }
-
+    label 'docker'
   }
   stages {
     stage('Get Sources') {
-      agent {
-        docker {
-          image 'centos/7'
-        }
-
-      }
       steps {
         sh 'echo "Test pipeline"'
       }
