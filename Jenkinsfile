@@ -40,7 +40,7 @@ pipeline {
     string(defaultValue: 'https://github.com/EvgeniyPatlan/percona-server.git', description: 'github repository for build', name: 'GIT_REPO')
     string(defaultValue: '8.0', description: 'Tag/Branch for percona-server repository', name: 'BRANCH')
     string(defaultValue: '0', description: 'PerconaFT repository', name: '     PERCONAFT_REPO')
-    string(defaultValue: 'master', description: 'Tag/Branch for PerconaFT repository', name: '')
+    string(defaultValue: 'master', description: 'Tag/Branch for PerconaFT repository', name: 'PERCONAFT_BRANCH')
     string(defaultValue: '0', description: 'TokuBackup repository', name: 'TOKUBACKUP_REPO')
     string(defaultValue: 'master', description: 'Tag/Branch for TokuBackup repository', name: 'TOKUBACKUP_BRANCH')
     string(defaultValue: '1', description: 'RPM version', name: 'RPM_RELEASE')
