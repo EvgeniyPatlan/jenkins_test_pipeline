@@ -25,7 +25,7 @@ pipeline {
     stage('Build percona-server source') {
       steps {
         sh '''sg docker -c "
-            bash -x build/bin/build-sources
+            ls -la
         "'''
         stash(name: 'source.tarball', includes: 'results/source_tarball/*.tar.*')
       }
