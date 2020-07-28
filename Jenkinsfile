@@ -25,35 +25,8 @@ pipeline {
     stage('Build percona-server source') {
       steps {
         sh '''sg docker -c "
-  . $(dirname $0)/vars
-
-set -o errexit
-set -o xtrace
-
-bin_dir=$(cd $(dirname $0); pwd -P)
-tmp_dir=${root_dir}/tmp
-
-main() {
-    local IMAGE=${1:-ubuntu:xenial}
-    docker run --rm -v $(dirname ${bin_dir})/debian:/home/builder/debian -v ${bin_dir}:/home/builder/bin -v ${root_dir}/results:/home/builder/results ${IMAGE} sh -c "
-        set -o errexit
-        set -o xtrace
-        OS_VERSION=$(cat /etc/os-release | grep VERSION_ID | awk -F\'"\' \'{print $2}\')
-        apt-get update
-        mkdir -p /tmp/dbaas/deb
-        cd /home/builder/bin
-            ls
-            #cp -r ./* /tmp/dbaas/
-            #cp -r ../debian /tmp/dbaas/
-            #bash /home/builder/bin/build-dbaas-packages             #    --builddir=/tmp/dbaas             #    --build_src_deb=1
-        cd -
-        #chown -R $(id -u):$(id -g) /home/builder/results/source_deb
-    "
-}
-
-main $*
-exit 0
-"'''
+            build/bin/build-sources
+        "'''
         stash(name: 'source.tarball', includes: 'results/source_tarball/*.tar.*')
       }
     }
@@ -64,7 +37,7 @@ exit 0
     disableConcurrentBuilds()
   }
   parameters {
-    string(defaultValue: 'https://github.com/percona/percona-server.git', description: 'github repository for build', name: 'GIT_REPO')
+    string(defaultValue: 'https://github.com/EvgeniyPatlan/percona-server.git', description: 'github repository for build', name: 'GIT_REPO')
     string(defaultValue: '8.0', description: 'Tag/Branch for percona-server repository', name: 'BRANCH')
     string(defaultValue: '0', description: 'PerconaFT repository', name: '     PERCONAFT_REPO')
     string(defaultValue: 'master', description: 'Tag/Branch for PerconaFT repository', name: '')
