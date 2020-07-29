@@ -29,7 +29,7 @@ pipeline {
         "
         ls -la ../
         '''
-        stash(includes: 'results/source_tarball/*.tar.*', name: 'source.tarball')
+        stash(includes: 'build/results/source_tarball/*.tar.*', name: 'source.tarball')
       }
     }
 
