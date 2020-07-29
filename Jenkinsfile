@@ -27,7 +27,7 @@ pipeline {
         sh '''sg docker -c "
             bash -x build/bin/build-sources
         "'''
-        stash(name: 'source.tarball', includes: 'results/source_tarball/*.tar.*')
+        stash(includes: 'results/source_tarball/*.tar.*', name: 'source.tarball')
       }
     }
 
