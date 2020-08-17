@@ -3,32 +3,21 @@ pipeline {
     label 'docker'
   }
   stages {
-    stage('Prepare') {
-      steps {
-        git(branch: BRANCH, url: GIT_REPO)
-        sh '''
-                    # sudo is needed for better node recovery after compilation failure
-                    # if building failed on compilation stage directory will have files owned by docker user
-                    sudo git reset --hard
-                    sudo git clean -xdf
-                   
-                    git rev-parse --short HEAD > shortCommit
-                    ##need to add version to product name
-                    echo "UPLOAD/experimental/${JOB_NAME}/percona-server-8.0/Percona-Server-8.0/${GIT_BRANCH}/$(cat shortCommit)/${BUILD_NUMBER}" > uploadPath
-                '''
-        stash(includes: 'uploadPath', name: 'uploadPath')
-        archiveArtifacts 'shortCommit'
-        archiveArtifacts 'uploadPath'
-      }
-    }
-
     stage('Build percona-server source') {
       steps {
-        sh '''sg docker -c "
-            bash -x build/bin/build-sources
-        "
-        ls -la ../
-        '''
+        sh """
+                  set -o xtrace
+                  mkdir test
+                  wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                  pwd -P
+                  ls -laR
+                  export build_dir=\$(pwd -P)
+                  docker run -u root -v \${build_dir}:\${build_dir} centos:6 sh -c "
+                    set -o xtrace
+                    cd \${build_dir}
+                    bash -x ./percona-server_builder.sh_builder.sh --builddir=\${build_dir}/test --install_deps=1
+                    bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --version=${VERSION} --branch=${GIT_BRANCH} --rpm_release=${RPM_RELEASE} -- deb_release=${DEB_RELEASE} --get_sources=1"
+                """
         stash(includes: 'build/results/source_tarball/*.tar.*', name: 'source.tarball')
       }
     }
