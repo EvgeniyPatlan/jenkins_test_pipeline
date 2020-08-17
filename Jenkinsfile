@@ -6,18 +6,18 @@ pipeline {
     stage('Build percona-server source') {
       steps {
         sh """
-                                  set -o xtrace
-                                  mkdir test
-                                  wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                  pwd -P
-                                  ls -laR
-                                  export build_dir=\$(pwd -P)
-                                  docker run -u root -v \${build_dir}:\${build_dir} centos:6 sh -c "
-                                    set -o xtrace
-                                    cd \${build_dir}
-                                    bash -x ./percona-server_builder.sh_builder.sh --builddir=\${build_dir}/test --install_deps=1
-                                    bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${GIT_BRANCH} --rpm_release=${RPM_RELEASE} -- deb_release=${DEB_RELEASE} --get_sources=1"
-                                """
+                                                  set -o xtrace
+                                                  mkdir test
+                                                  wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                  pwd -P
+                                                  ls -laR
+                                                  export build_dir=\$(pwd -P)
+                                                  docker run -u root -v \${build_dir}:\${build_dir} centos:6 sh -c "
+                                                    set -o xtrace
+                                                    cd \${build_dir}
+                                                    bash -x ./percona-server_builder.sh_builder.sh --builddir=\${build_dir}/test --install_deps=1
+                                                    bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} -- deb_release=${DEB_RELEASE} --get_sources=1"
+                                                """
         stash(includes: 'build/results/source_tarball/*.tar.*', name: 'source.tarball')
       }
     }
