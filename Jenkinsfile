@@ -36,22 +36,22 @@ pipeline {
         stage('Build PS generic source rpm') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} centos:6 sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_src_rpm=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} centos:6 sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_src_rpm=1
+                                                                    "
+                                                                """
             stash(includes: 'srpm/*', name: 'srpm')
           }
         }
@@ -59,22 +59,22 @@ pipeline {
         stage('Build source deb') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} ubuntu:xenial sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_source_deb=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} ubuntu:xenial sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_source_deb=1
+                                                                    "
+                                                                """
             stash(includes: 'sdeb/*', name: 'sdeb')
           }
         }
@@ -87,22 +87,22 @@ pipeline {
         stage('Centos7') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} centos:7 sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_rpm=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} centos:7 sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_rpm=1
+                                                                    "
+                                                                """
             stash(includes: 'rpm/*', name: 'rpm_cent7')
           }
         }
@@ -110,22 +110,22 @@ pipeline {
         stage('Centos 8') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} centos:8 sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_rpm=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} centos:8 sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_rpm=1
+                                                                    "
+                                                                """
             stash(includes: 'rpm/*', name: 'rpm_cent8')
           }
         }
@@ -133,22 +133,22 @@ pipeline {
         stage('Ubuntu 16.04') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} ubuntu:xenial sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} ubuntu:xenial sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
+                                                                    "
+                                                                """
             stash(includes: 'deb/*', name: 'deb16')
           }
         }
@@ -156,22 +156,22 @@ pipeline {
         stage('Ubuntu 18.04') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} ubuntu:bionic sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} ubuntu:bionic sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
+                                                                    "
+                                                                """
             stash(includes: 'deb/*', name: 'deb18')
           }
         }
@@ -179,22 +179,22 @@ pipeline {
         stage('Ubuntu 20.04') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} ubuntu:focal sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} ubuntu:focal sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
+                                                                    "
+                                                                """
             stash(includes: 'deb/*', name: 'deb20')
           }
         }
@@ -202,22 +202,22 @@ pipeline {
         stage('Debian 9') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} debian:stretch sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} debian:stretch sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
+                                                                    "
+                                                                """
             stash(includes: 'deb/*', name: 'deb9')
           }
         }
@@ -225,22 +225,22 @@ pipeline {
         stage('Debian 10') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} debian:buster sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} debian:buster sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_deb=1
+                                                                    "
+                                                                """
             stash(includes: 'deb/*', name: 'deb10')
           }
         }
@@ -248,26 +248,32 @@ pipeline {
         stage('Tarball') {
           steps {
             sh """
-                                                        set -o xtrace
-                                                        rm -rf test
-                                                        mkdir test
-                                                        wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
-                                                        sed -i 's:sudo::g' percona-server_builder.sh
-                                                        pwd -P
-                                                        ls -laR
-                                                        export build_dir=\$(pwd -P)
-                                                        docker run -u root -v \${build_dir}:\${build_dir} ubuntu:xenial sh -c "
-                                                            set -o xtrace
-                                                            cd \${build_dir}
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
-                                                            apt-get -y install git; \
-                                                            bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_tarball=1
-                                                        "
-                                                    """
+                                                                    set -o xtrace
+                                                                    rm -rf test
+                                                                    mkdir test
+                                                                    wget https://raw.githubusercontent.com/EvgeniyPatlan/percona-server/8.0/build-ps/percona-server-8.0_builder.sh -O percona-server_builder.sh
+                                                                    sed -i 's:sudo::g' percona-server_builder.sh
+                                                                    pwd -P
+                                                                    ls -laR
+                                                                    export build_dir=\$(pwd -P)
+                                                                    docker run -u root -v \${build_dir}:\${build_dir} ubuntu:xenial sh -c "
+                                                                        set -o xtrace
+                                                                        cd \${build_dir}
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --install_deps=1; \
+                                                                        apt-get -y install git; \
+                                                                        bash -x ./percona-server_builder.sh --builddir=\${build_dir}/test --repo=${GIT_REPO} --branch=${BRANCH} --rpm_release=${RPM_RELEASE} --deb_release=${DEB_RELEASE} --build_tarball=1
+                                                                    "
+                                                                """
             stash(includes: 'tarball/*', name: 'tarball')
           }
         }
 
+      }
+    }
+
+    stage('Push packages') {
+      steps {
+        sh 'echo "Hello World!"'
       }
     }
 
